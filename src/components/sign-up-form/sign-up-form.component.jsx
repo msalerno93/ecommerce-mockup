@@ -3,6 +3,9 @@ import {
   createAuthUserWithEmailandPassword,
   createUserDocFromAuth,
 } from "../../utilities/firebase/firebase.utilities";
+import Button from "../button/button.component";
+import FormInput from "../form-input/form-input.component";
+import './sign-up-form.styles.scss'
 
 const defaultFormFields = {
   displayName: "",
@@ -16,8 +19,8 @@ function SignUpForm() {
   const { displayName, email, password, confirmPassword } = formFields;
 
   const resetFormFields = () => {
-    setFormFields(defaultFormFields)
-  }
+    setFormFields(defaultFormFields);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,14 +36,13 @@ function SignUpForm() {
       );
 
       await createUserDocFromAuth(user, { displayName });
-      resetFormFields()
-
+      resetFormFields();
     } catch (error) {
-        if(error.code === 'auth/email-already-in-use'){
-            alert('Cannot create user, email already in use!')
-        } else{
-            console.log('Theres an error', error);
-        }
+      if (error.code === "auth/email-already-in-use") {
+        alert("Cannot create user, email already in use!");
+      } else {
+        console.log("Theres an error", error);
+      }
     }
   };
 
@@ -49,48 +51,77 @@ function SignUpForm() {
     setFormFields({ ...formFields, [name]: value });
   };
   return (
-    <div>
-      <h1>Sign Up With Email</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign Up With Email</span>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="">Display Name</label>
-        <input
-          required
+        <FormInput
+          label="Display Name"
           type="text"
+          required
           onChange={handleChange}
           name="displayName"
           value={displayName}
         />
 
-        <label htmlFor="">Email</label>
-        <input
-          required
+        <FormInput
+          label="Email"
           type="email"
+          required
           onChange={handleChange}
           name="email"
           value={email}
         />
 
-        <label htmlFor="">Password</label>
-        <input
-          required
+        <FormInput
+          label="Password"
           type="password"
+          required
           onChange={handleChange}
           name="password"
           value={password}
         />
 
-        <label htmlFor="">Confirm Password</label>
-        <input
-          required
+        <FormInput
+          label="Confirm Password"
           type="password"
+          required
           onChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
         />
-        <button type="submit">Sign Up</button>
+        <Button type="submit">Sign Up </Button>
       </form>
     </div>
   );
 }
 
 export default SignUpForm;
+
+// label="Email"
+// required
+// type="email"
+// onChange={handleChange}
+// name="email"
+// value={email}
+
+// label="Display Name"
+// required
+// type="text"
+// onChange={handleChange}
+// name="displayName"
+// value={displayName}
+
+// label="Password"
+// required
+// type="password"
+// onChange={handleChange}
+// name="password"
+// value={password}
+
+// label="Confirm Password"
+// required
+// type="password"
+// onChange={handleChange}
+// name="confirmPassword"
+// value={confirmPassword}
