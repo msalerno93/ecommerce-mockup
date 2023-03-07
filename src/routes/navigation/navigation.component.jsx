@@ -19,7 +19,7 @@ function Navigation() {
           <Link className="nav-link" to="/contact">
             CONTACT US
           </Link>
-          <Link className="nav-link" to="/signin">
+          <Link className="nav-link" to="/auth">
             SIGN IN
           </Link>
         </div>
